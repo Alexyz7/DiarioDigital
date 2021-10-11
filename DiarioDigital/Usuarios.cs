@@ -12,6 +12,7 @@ namespace DiarioDigital
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    
     public partial class Usuarios
     {
         private DiarioOnlineEntities db = new DiarioOnlineEntities();
@@ -29,11 +30,10 @@ namespace DiarioDigital
 
         public bool autenticar()
         {
+
             return db.Usuarios.Where(x => x.Email == this.Email && x.Contraseña == this.Contraseña).FirstOrDefault() != null;
 
-
         }
-
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentarios> Comentarios { get; set; }

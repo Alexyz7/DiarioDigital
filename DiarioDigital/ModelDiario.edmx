@@ -27,7 +27,7 @@
           <Key>
             <PropertyRef Name="Idcoment" />
           </Key>
-          <Property Name="Idcoment" Type="int" Nullable="false" />
+          <Property Name="Idcoment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="comentario" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="DateComent" Type="datetime" />
           <Property Name="postID" Type="int" Nullable="false" />
@@ -37,7 +37,7 @@
           <Key>
             <PropertyRef Name="IdSubcoment" />
           </Key>
-          <Property Name="IdSubcoment" Type="int" Nullable="false" />
+          <Property Name="IdSubcoment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="subComentario" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="fechaSub" Type="datetime" />
           <Property Name="ComID" Type="int" Nullable="false" />
