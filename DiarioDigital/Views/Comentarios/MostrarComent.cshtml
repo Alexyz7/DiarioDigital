@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DiarioDigital.Comentarios>
+
+@{
+
+    Layout = null;
+
+
+}
+
+@foreach (var item in Model)
+{
+
+    <div class="container" style="padding-top:10px">
+
+        <div class="row" style="background-color:white">
+            @Html.HiddenFor(modelItem => item.Idcoment)  
+
+            <div class="col-md-9 offset-1" style="color:cornflowerblue">@Html.DisplayFor(modelItem => item.Usuarios.Nombre) @Html.DisplayFor(modelItem => item.DateComent)
+            </div>
+                     
+            <div class="d-flex align-items-center">
+
+                <div class="flex-shrink-0 align-self-start"> <img src="~/Content/Imagenes/user.jpg" width="60" height="60">  </div>
+
+
+                <div class="flex-grow-1 ms-3" style="background-color:white">@Html.DisplayFor(modelItem => item.comentario) </div>
+            
+            </div>
+        </div>
+       </div>
+}
+
+<footer>
+
+    @using (Html.BeginForm("Delete", "Comentarios", FormMethod.Post))
+    {
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+
+        </div>
+    }
+
+
+</footer>

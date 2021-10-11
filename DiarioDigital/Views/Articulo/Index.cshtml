@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DiarioDigital.Articulo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<hr />
+
+@if (new string[] { "admin@hotmail.com" }.Contains(this.User.Identity.Name))
+{
+    <p class="btn btn-primary bi bi-pencil-fill">
+        @Html.ActionLink("Nuevo post", "Create", null, new { style = "color:white; text-decoration:none; padding-left:2px;" })
+    </p>
+}
+    <hr />
+
+    <div class="container" style="max-width:890px">
+
+        <div class="row">
+
+            @foreach (var item in Model)
+            {
+
+
+                <div class="col-md-4 justify-content-center">
+                    <a style="text-decoration:none" href="@Url.Action("Details", new { id = item.IdArticulo})">
+
+                        <div class="col-md-12">
+                            <picture>
+                                @{
+                                    var base64 = Convert.ToBase64String(item.Vista_previa);
+                                    var imgss = string.Format("data:image/gif; base64, {0}", base64);
+                                }
+                                <img src="@imgss" style="height:200px; width:250px" class="rounded mx-auto d-block" />
+                            </picture>
+                            <footer style="border-bottom: 1px solid grey"><h6 style="color:darkgray; font-family:Garamond">@Html.DisplayFor(modelitem => item.Categoria.Nombre)</h6></footer>
+
+
+                            <div class="caption">
+                                <p style="color:black; font-size:20px ;font-family: Times New Roman, serif">@Html.DisplayFor(modelItem => item.Titulo)</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>

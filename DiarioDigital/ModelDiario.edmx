@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DiarioOnlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="IdArticulo" />
+          </Key>
+          <Property Name="IdArticulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Contenido" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="categoriaID" Type="int" Nullable="false" />
+          <Property Name="Vista_previa" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Idcategoria" />
+          </Key>
+          <Property Name="Idcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comentarios">
+          <Key>
+            <PropertyRef Name="Idcoment" />
+          </Key>
+          <Property Name="Idcoment" Type="int" Nullable="false" />
+          <Property Name="comentario" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DateComent" Type="datetime" />
+          <Property Name="postID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subcomentarios">
+          <Key>
+            <PropertyRef Name="IdSubcoment" />
+          </Key>
+          <Property Name="IdSubcoment" Type="int" Nullable="false" />
+          <Property Name="subComentario" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="fechaSub" Type="datetime" />
+          <Property Name="ComID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Contraseña" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_artComent">
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="IdArticulo" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="postID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Categoria_Art">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Idcategoria" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="categoriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ComUser">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_iduser">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Subcomentarios" Type="Self.Subcomentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Subcomentarios">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_subs">
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="1" />
+          <End Role="Subcomentarios" Type="Self.Subcomentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comentarios">
+              <PropertyRef Name="Idcoment" />
+            </Principal>
+            <Dependent Role="Subcomentarios">
+              <PropertyRef Name="ComID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiarioOnlineModelStoreContainer">
+          <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comentarios" EntityType="Self.Comentarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subcomentarios" EntityType="Self.Subcomentarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_artComent" Association="Self.fk_artComent">
+            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Categoria_Art" Association="Self.fk_Categoria_Art">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ComUser" Association="Self.fk_ComUser">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_iduser" Association="Self.fk_iduser">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Subcomentarios" EntitySet="Subcomentarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subs" Association="Self.fk_subs">
+            <End Role="Comentarios" EntitySet="Comentarios" />
+            <End Role="Subcomentarios" EntitySet="Subcomentarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiarioOnlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="IdArticulo" />
+          </Key>
+          <Property Name="IdArticulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Contenido" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="categoriaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.fk_Categoria_Art" FromRole="Articulo" ToRole="Categoria" />
+          <Property Name="Vista_previa" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Comentarios" Relationship="DiarioOnlineModel.fk_artComent" FromRole="Articulo" ToRole="Comentarios" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Idcategoria" />
+          </Key>
+          <Property Name="Idcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="Self.fk_Categoria_Art" FromRole="Categoria" ToRole="Articulo" />
+        </EntityType>
+        <Association Name="fk_Categoria_Art">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Idcategoria" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="categoriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiarioOnlineEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articulo" EntityType="Self.Articulo" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <AssociationSet Name="fk_Categoria_Art" Association="Self.fk_Categoria_Art">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <EntitySet Name="Comentarios" EntityType="DiarioOnlineModel.Comentarios" />
+          <EntitySet Name="Subcomentarios" EntityType="DiarioOnlineModel.Subcomentarios" />
+          <EntitySet Name="Usuarios" EntityType="DiarioOnlineModel.Usuarios" />
+          <AssociationSet Name="fk_ComUser" Association="DiarioOnlineModel.fk_ComUser">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subs" Association="DiarioOnlineModel.fk_subs">
+            <End Role="Comentarios" EntitySet="Comentarios" />
+            <End Role="Subcomentarios" EntitySet="Subcomentarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_iduser" Association="DiarioOnlineModel.fk_iduser">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Subcomentarios" EntitySet="Subcomentarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_artComent" Association="DiarioOnlineModel.fk_artComent">
+            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Comentarios">
+          <Key>
+            <PropertyRef Name="Idcoment" />
+          </Key>
+          <Property Name="Idcoment" Type="Int32" Nullable="false" />
+          <Property Name="comentario" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DateComent" Type="DateTime" Precision="3" />
+          <Property Name="postID" Type="Int32" Nullable="false" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="DiarioOnlineModel.fk_ComUser" FromRole="Comentarios" ToRole="Usuarios" />
+          <NavigationProperty Name="Subcomentarios" Relationship="DiarioOnlineModel.fk_subs" FromRole="Comentarios" ToRole="Subcomentarios" />
+          <NavigationProperty Name="Articulo" Relationship="DiarioOnlineModel.fk_artComent" FromRole="Comentarios" ToRole="Articulo" />
+        </EntityType>
+        <EntityType Name="Subcomentarios">
+          <Key>
+            <PropertyRef Name="IdSubcoment" />
+          </Key>
+          <Property Name="IdSubcoment" Type="Int32" Nullable="false" />
+          <Property Name="subComentario" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="fechaSub" Type="DateTime" Precision="3" />
+          <Property Name="ComID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comentarios" Relationship="DiarioOnlineModel.fk_subs" FromRole="Subcomentarios" ToRole="Comentarios" />
+          <NavigationProperty Name="Usuarios" Relationship="DiarioOnlineModel.fk_iduser" FromRole="Subcomentarios" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Comentarios" Relationship="DiarioOnlineModel.fk_ComUser" FromRole="Usuarios" ToRole="Comentarios" />
+          <NavigationProperty Name="Subcomentarios" Relationship="DiarioOnlineModel.fk_iduser" FromRole="Usuarios" ToRole="Subcomentarios" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="fk_ComUser">
+          <End Type="DiarioOnlineModel.Usuarios" Role="Usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DiarioOnlineModel.Comentarios" Role="Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_subs">
+          <End Type="DiarioOnlineModel.Comentarios" Role="Comentarios" Multiplicity="1" />
+          <End Type="DiarioOnlineModel.Subcomentarios" Role="Subcomentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comentarios">
+              <PropertyRef Name="Idcoment" />
+            </Principal>
+            <Dependent Role="Subcomentarios">
+              <PropertyRef Name="ComID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_iduser">
+          <End Type="DiarioOnlineModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="DiarioOnlineModel.Subcomentarios" Role="Subcomentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Subcomentarios">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_artComent">
+          <End Type="DiarioOnlineModel.Articulo" Role="Articulo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DiarioOnlineModel.Comentarios" Role="Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="IdArticulo" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="postID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DiarioOnlineModelStoreContainer" CdmEntityContainer="DiarioOnlineEntities">
+          <EntitySetMapping Name="Articulo">
+            <EntityTypeMapping TypeName="DiarioOnlineModel.Articulo">
+              <MappingFragment StoreEntitySet="Articulo">
+                <ScalarProperty Name="Vista_previa" ColumnName="Vista_previa" />
+                <ScalarProperty Name="IdArticulo" ColumnName="IdArticulo" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Contenido" ColumnName="Contenido" />
+                <ScalarProperty Name="categoriaID" ColumnName="categoriaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="DiarioOnlineModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="Idcategoria" ColumnName="Idcategoria" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comentarios">
+            <EntityTypeMapping TypeName="DiarioOnlineModel.Comentarios">
+              <MappingFragment StoreEntitySet="Comentarios">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="postID" ColumnName="postID" />
+                <ScalarProperty Name="DateComent" ColumnName="DateComent" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="Idcoment" ColumnName="Idcoment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subcomentarios">
+            <EntityTypeMapping TypeName="DiarioOnlineModel.Subcomentarios">
+              <MappingFragment StoreEntitySet="Subcomentarios">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ComID" ColumnName="ComID" />
+                <ScalarProperty Name="fechaSub" ColumnName="fechaSub" />
+                <ScalarProperty Name="subComentario" ColumnName="subComentario" />
+                <ScalarProperty Name="IdSubcoment" ColumnName="IdSubcoment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DiarioOnlineModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,47 @@
+﻿
+
+@model  DiarioDigital.ViewModel.ArticuloComentarioViewModel
+
+
+@{
+    ViewBag.title = "Coment";
+    Layout = null;
+
+
+
+}
+   
+ 
+
+
+
+    @using (Html.BeginForm("Coment", "Comentarios", FormMethod.Post))
+    {
+
+
+        <div class="container">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row" style="padding-bottom:20px">
+
+                <div class="col-md-12">
+                    @Html.TextAreaFor(model => model.comentarios.comentario, new { @class = "form-control", rows = 3, style = "max-width: 580px ", placeholder = "Escribir un comentario" })
+                    @Html.ValidationMessageFor(model => model.comentarios, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.Articulo.IdArticulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Articulo.IdArticulo, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="row justify-content-md-center">
+
+                <div class="col-lg-2">
+                    <input type="submit" value="Enviar"  class="btn btn-primary" />
+                </div>
+            </div>
+
+        </div>
+    }

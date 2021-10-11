@@ -1,0 +1,105 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi aplicación ASP.NET</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Miestilo.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+<body style="background-color:black">
+
+    <div class="container" style="border: 2px solid red; max-width:920px; background-color:white">
+        <div class="row justify-content-center">
+            <div class="row">
+                <div class="col align-self-end" style="font-family:Garamond; font-weight:bolder; font-size:20px">@DateTime.Now.ToString(" dd MMMM yyyy HH: mm")</div>
+                <div class="col align-self-center" id="cabecera">
+                    <a href=@Url.Action("Index","Articulo")><img src="~/Content/Imagenes/mini.jpg" /></a>
+                </div>
+
+                <div class="col align-self-end text-end ">
+
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <p class=" btn btn-dark bi bi-person-x-fill">
+                            @Html.ActionLink("Cerrar Sesion", "terminarSesion", "Usuario", null, new { style = "text-decoration:none; color:white" })
+
+                            <span>@User.Identity.Name</span>  
+                        </p>
+                    }
+                    else
+                    {
+
+                        <p class=" btn btn-dark bi-person-fill">
+                            @Html.ActionLink("Iniciar Sesion", "Logeo", "Usuario", null, new { style = "text-decoration:none; color:white " })
+
+                        </p>
+                    }
+
+
+                </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <span id="menu2" class="d-block d-sm-none">Menu</span>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sgg" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="sgg">
+                                <ul class="navbar-nav mx-auto" id="barraPrin">
+                                    <li>@Html.ActionLink("Sociedad", "Sociedad", "Articulo", new { @class = "nav-link", style = "text-decoration:none;" })</li>
+                                    <li><a class="nav-link" href="#">Ciencia y Tecnologia</a></li>
+                                    <li><a class="nav-link" href="#">Economía</a></li>
+                                    <li><a class="nav-link" href="#">Política</a></li>
+                                    <li><a class="nav-link" href="#">Opinión</a></li>
+                                    <li><a class="nav-link" href="#">Cultura</a></li>
+                                    <li><a class="nav-link" href="#">Internacional</a></li>
+                                    <li><a class="nav-link" href="#">Deportes</a></li>                              
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+
+
+        <div class="container" style="max-width:890px; min-height:800px">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

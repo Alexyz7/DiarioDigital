@@ -1,0 +1,70 @@
+﻿@model DiarioDigital.Articulo
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    
+}
+
+<br />
+<div class="container">
+
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+
+            <div class="d-flex justify-content-end">@Html.DisplayFor(model => model.Fecha)</div>
+            <div class="col-md-9 mx-auto" style="font-family:'Times New Roman'; font-weight:bold; font-size:40px">@Html.DisplayFor(model => model.Titulo)</div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">@Html.Raw(Model.Contenido)</div>
+
+    </div>
+
+
+    <div class="row" style="background-color: #f0f2f5;">
+
+        @if (Model.Comentarios != null)
+        {
+
+            <div class="col-md-12">
+                @Html.Action("MostrarComent", "Comentarios", new { id = Model.IdArticulo })
+
+            </div>
+        }
+
+        <div class="col-md-12">@Html.Action("Coment", "Comentarios", new { id = Model.IdArticulo })</div>
+
+
+
+
+
+
+        @if (new string[] { "admin@hotmail.com" }.Contains(this.User.Identity.Name))
+        {
+            <p>
+                @Html.ActionLink("Editar", "Edit", new { id = Model.IdArticulo }) |
+                @Html.ActionLink("Volver al inicio", "Index")|
+                @Html.ActionLink("Eliminar", "Delete", new { id = Model.IdArticulo })
+            </p>
+
+        }
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+
