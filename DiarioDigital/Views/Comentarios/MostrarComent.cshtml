@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<DiarioDigital.Comentarios>
 
+@using Humanizer
+
 @{
 
     Layout = null;
@@ -7,39 +9,51 @@
 
 }
 
+
+
+
 @foreach (var item in Model)
 {
 
-    <div class="container" style="padding-top:10px">
+<div class="container" style="padding-top:10px">
 
-        <div class="row" style="background-color:white">
-            @Html.HiddenFor(modelItem => item.Idcoment)  
+    <div class="row" style="background-color:white">
+        @Html.HiddenFor(modelItem => item.Idcoment)
 
-            <div class="col-md-9 offset-1" style="color:cornflowerblue">@Html.DisplayFor(modelItem => item.Usuarios.Nombre) @Html.DisplayFor(modelItem => item.DateComent)
-            </div>
-                     
-            <div class="d-flex align-items-center">
-
-                <div class="flex-shrink-0 align-self-start"> <img src="~/Content/Imagenes/user.jpg" width="60" height="60">  </div>
-
-
-                <div class="flex-grow-1 ms-3" style="background-color:white">@Html.DisplayFor(modelItem => item.comentario) </div>
+        <div class="d-flex" style="color:cornflowerblue">
+         
             
-            </div>
+            
+            <div class="p-2 flex-grow-1">@Html.DisplayFor(modelItem => item.Usuarios.Nombre) </div> <div class="p-2">@item.DateComent</div> 
+        
+        
+        
+        
         </div>
-       </div>
+
+        <div class="d-flex align-items-center">
+
+            <div class="flex-shrink-0 align-self-start"> <img src="~/Content/Imagenes/user1.jpg" width="61" height="61"></div>
+            <div class="flex-grow-1 ms-3" style="background-color:white">@Html.DisplayFor(modelItem => item.comentario) </div>
+
+        </div>
+        <div class="row"><div class="flex-shrink-0 align-self-start"> @Html.Action("Delete", "Comentarios", new { id = item.Idcoment })</div></div>
+    </div>
+
+
+</div>
 }
 
-<footer>
-
-    @using (Html.BeginForm("Delete", "Comentarios", FormMethod.Post))
-    {
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" />
-
-        </div>
-    }
 
 
-</footer>
+
+
+
+
+
+
+
+
+
+
+

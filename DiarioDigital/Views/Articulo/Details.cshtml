@@ -5,7 +5,7 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    
+
 }
 
 <br />
@@ -18,7 +18,7 @@
         <div class="col-md-12">
 
 
-            <div class="d-flex justify-content-end">@Html.DisplayFor(model => model.Fecha)</div>
+            <div class="d-flex justify-content-end" style="font-family:Garamond; font-size:20px; font-weight:bold">@Model.Fecha.Value.ToString("dd MMM yyyy")</div>
             <div class="col-md-9 mx-auto" style="font-family:'Times New Roman'; font-weight:bold; font-size:40px">@Html.DisplayFor(model => model.Titulo)</div>
         </div>
 
@@ -28,6 +28,33 @@
         <div class="col-md-12">@Html.Raw(Model.Contenido)</div>
 
     </div>
+
+
+    @if (new string[] { "admin@hotmail.com" }.Contains(this.User.Identity.Name))
+    {
+        <div class="d-flex flex-row mb-3 justify-content-end">
+
+            <div class="p-2 btn btn-dark bi bi-briefcase-fill" style="height:40px">@Html.ActionLink("Editar", "Edit", new { id = Model.IdArticulo }, new { style = "text-decoration:none; padding-left:5px; color:white" })</div>
+
+            <div style="padding:5px"></div>
+
+            <div class="p-2 btn btn-dark bi bi-house-door " style="height:40px">@Html.ActionLink("Volver al inicio", "Index", "Articulo", null, new { style = "text-decoration:none; padding-left:5px; color:white" })</div>
+            <div class="p-2" style="margin-top:-6px">
+                @Html.Action("Delete", "Articulo", new { id = Model.IdArticulo })
+            </div>
+        </div>
+    }
+
+
+
+
+    @if (User.Identity.Name.IsEmpty())
+    {
+
+        <p style="color:white; background-color:slategray">Registrate o inicia sesión para hacer un comentario</p>
+
+    }
+
 
 
     <div class="row" style="background-color: #f0f2f5;">
@@ -46,23 +73,8 @@
 
 
 
-
-
-        @if (new string[] { "admin@hotmail.com" }.Contains(this.User.Identity.Name))
-        {
-            <p>
-                @Html.ActionLink("Editar", "Edit", new { id = Model.IdArticulo }) |
-                @Html.ActionLink("Volver al inicio", "Index")|
-                @Html.ActionLink("Eliminar", "Delete", new { id = Model.IdArticulo })
-            </p>
-
-        }
-
-
-
-
     </div>
-  </div>
+</div>
 
 
 

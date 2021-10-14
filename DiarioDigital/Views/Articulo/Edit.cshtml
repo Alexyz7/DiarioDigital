@@ -5,20 +5,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+
+        selector: "#Contenido",
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste imagetools wordcount emoticons'
+        ],
+        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor emoticons',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+        height: 500,
+        automatic_uploads: true,
+        image_title: true,
+        file_picker_types: 'image',
+
+        // and here's our custom image picker
+        file_picker_callback: function (cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.onchange = function () {
+                var file = this.files[0];
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+            };
+
+            input.click();
+        }
+    });
+
+
+</script>
+
+
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Articulo</h4>
+
+    <div class="container">
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdArticulo)
-
-        <div class="form-group">
+        <div class="row" style="padding-bottom:20px">
             @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
@@ -26,50 +69,51 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Contenido, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Contenido, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="row" style="padding-bottom:10px">
+
+            <div class="col-md-12">
+                @Html.TextAreaFor(model => model.Contenido, new { htmlAttributes = new { @class = "form-control " } })
                 @Html.ValidationMessageFor(model => model.Contenido, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.categoriaID, "categoriaID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="row" style="padding-bottom:20px">
+            @Html.LabelFor(model => model.categoriaID, "Elegir categoria", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("categoriaID", null, htmlAttributes: new { @class = "form-control" })
+
+                @Html.DropDownList("categoriaID", string.Empty)
                 @Html.ValidationMessageFor(model => model.categoriaID, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Vista_previa, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="row" style="padding-bottom:20px">
+
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vista_previa, new { htmlAttributes = new { @class = "form-control" } })
+                <label class="btn btn-primary" for="img" style="color:white">
+                    <input type="file" name="img" id="img" hidden />
+                    <i class="bi bi-folder" style="padding-right:5px; color:white"></i> Subir imagen
+                </label>
+
                 @Html.ValidationMessageFor(model => model.Vista_previa, "", new { @class = "text-danger" })
+
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+
+        <div class="row justify-content-md-center">
+
+            <div class="col-lg-2">
+                <input type="submit" value="Publicar" class="btn btn-success" />
+            </div>
+            <div class="col-lg-3 btn btn-dark bi bi-house-fill">
+                @Html.ActionLink("Volver al inicio", "Index", null, new { style = "text-decoration:none; color:white; padding-left:2px" })
+
             </div>
         </div>
+
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+

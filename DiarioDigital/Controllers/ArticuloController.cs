@@ -131,13 +131,13 @@ namespace DiarioDigital.Controllers
         }
 
         // GET: Articulo/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Articulo articulo = await db.Articulo.FindAsync(id);
+            Articulo articulo = db.Articulo.Find(id);
             if (articulo == null)
             {
                 return HttpNotFound();
@@ -148,11 +148,11 @@ namespace DiarioDigital.Controllers
         // POST: Articulo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateInput(false)]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Articulo articulo = await db.Articulo.FindAsync(id);
+            Articulo articulo =  db.Articulo.Find(id);
             db.Articulo.Remove(articulo);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

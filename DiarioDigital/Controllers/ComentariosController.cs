@@ -5,7 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-
+using Humanizer;
 
 
 namespace DiarioDigital.Controllers
@@ -53,7 +53,7 @@ namespace DiarioDigital.Controllers
             if (model != null)
             {
                 coment.Idcoment = model.comentarios.Idcoment;
-                coment.DateComent = DateTime.Now;
+                coment.DateComent = DateTime.UtcNow;
                 coment.postID = model.Articulo.IdArticulo;
                 coment.userID = useractual;           
                 coment.comentario = model.comentarios.comentario;
@@ -88,16 +88,24 @@ namespace DiarioDigital.Controllers
             Comentarios comentarios = db.Comentarios.Find(id);
             db.Comentarios.Remove(comentarios);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Articulo");
         }
+
+
+      
+
+
 
 
 
 
         public ActionResult MostrarComent(int? id)        
         {
+            
 
             var mostrar = db.Comentarios.Include("Articulo").Where(x => x.postID == id);
+
+           
 
             return View(mostrar);
         }

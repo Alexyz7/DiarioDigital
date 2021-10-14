@@ -27,10 +27,12 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
+                        DiarioOnlineEntities db = new DiarioOnlineEntities();
+                        var useractual = db.Usuarios.FirstOrDefault(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).Nombre;
                         <p class=" btn btn-dark bi bi-person-x-fill">
                             @Html.ActionLink("Cerrar Sesion", "terminarSesion", "Usuario", null, new { style = "text-decoration:none; color:white" })
 
-                            <span>@User.Identity.Name</span>  
+                            <span style="background-color:crimson">@useractual</span>  
                         </p>
                     }
                     else

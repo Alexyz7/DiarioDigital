@@ -29,7 +29,7 @@
           </Key>
           <Property Name="Idcoment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="comentario" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="DateComent" Type="datetime" />
+          <Property Name="DateComent" Type="datetime" Nullable="false" />
           <Property Name="postID" Type="int" Nullable="false" />
           <Property Name="userID" Type="int" Nullable="false" />
         </EntityType>
@@ -217,7 +217,7 @@
           </Key>
           <Property Name="Idcoment" Type="Int32" Nullable="false" />
           <Property Name="comentario" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="DateComent" Type="DateTime" Precision="3" />
+          <Property Name="DateComent" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="postID" Type="Int32" Nullable="false" />
           <Property Name="userID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Usuarios" Relationship="DiarioOnlineModel.fk_ComUser" FromRole="Comentarios" ToRole="Usuarios" />

@@ -11,9 +11,12 @@ namespace DiarioDigital
 {
     using System;
     using System.Collections.Generic;
-    
+
+
     public partial class Articulo
     {
+   
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Articulo()
         {
@@ -26,7 +29,11 @@ namespace DiarioDigital
         public string Contenido { get; set; }
         public int categoriaID { get; set; }
         public byte[] Vista_previa { get; set; }
-    
+
+
+
+      
+
         public virtual Categoria Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentarios> Comentarios { get; set; }
