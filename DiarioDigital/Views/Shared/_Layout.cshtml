@@ -6,16 +6,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi aplicación ASP.NET</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
     <link href="~/Content/Miestilo.css" rel="stylesheet" />
+    @Styles.Render("~/Content/bootstrap.min.css")
     <script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+
+
 </head>
+
 <body style="background-color:black">
 
     <div class="container" style="border: 2px solid red; max-width:920px; background-color:white">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="padding-top:10px">
             <div class="row">
                 <div class="col align-self-end" style="font-family:Garamond; font-weight:bolder; font-size:20px">@DateTime.Now.ToString(" dd MMMM yyyy HH: mm")</div>
                 <div class="col align-self-center" id="cabecera">
@@ -78,12 +83,24 @@
 
 
         <div class="container" style="max-width:890px; min-height:800px">
+
             @RenderBody()
             <hr />
-            <footer>
+            <footer class="text-center text-lg-start bg-light text-muted">
                 <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+
+                <div class="d-flex flex-row mb-3 justify-content-end">
+                   
+                        <a><img src="~/Content/Imagenes/face.png" width="38" height="38" /></a>
+                        <a><img src="~/Content/Imagenes/insta.png" width="38" height="38" /></a>
+                        <a><img src="~/Content/Imagenes/twitter.png" width="38" height="38" /></a>
+                        <a><img src="~/Content/Imagenes/whats.png" width="38" height="38" /></a>
+                   
+
+                </div>
             </footer>
-        </div>
+    
+        </div>    
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~~/bundles/bootstrap")

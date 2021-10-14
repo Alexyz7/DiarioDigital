@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<DiarioDigital.Comentarios>
 
-@using Humanizer
+
 
 @{
 
@@ -21,14 +21,14 @@
         @Html.HiddenFor(modelItem => item.Idcoment)
 
         <div class="d-flex" style="color:cornflowerblue">
-         
-            
-            
-            <div class="p-2 flex-grow-1">@Html.DisplayFor(modelItem => item.Usuarios.Nombre) </div> <div class="p-2">@item.DateComent</div> 
-        
-        
-        
-        
+
+
+
+            <div class="p-2 flex-grow-1">@Html.DisplayFor(modelItem => item.Usuarios.Nombre) </div> <div class="p-2">@item.DateComent</div>
+
+
+
+
         </div>
 
         <div class="d-flex align-items-center">
@@ -37,7 +37,19 @@
             <div class="flex-grow-1 ms-3" style="background-color:white">@Html.DisplayFor(modelItem => item.comentario) </div>
 
         </div>
-        <div class="row"><div class="flex-shrink-0 align-self-start"> @Html.Action("Delete", "Comentarios", new { id = item.Idcoment })</div></div>
+
+
+        @if (User.Identity.IsAuthenticated)
+
+        {
+
+
+            <div class="row"><div class="flex-shrink-0 align-self-start"> @Html.Action("Delete", "Comentarios", new { id = item.Idcoment })</div></div>
+
+
+        }
+
+
     </div>
 
 

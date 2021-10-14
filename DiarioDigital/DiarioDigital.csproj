@@ -325,9 +325,12 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Imagenes\diarioo.jpg" />
+    <Content Include="Content\Imagenes\face.png" />
+    <Content Include="Content\Imagenes\insta.png" />
     <Content Include="Content\Imagenes\mini.jpg" />
-    <Content Include="Content\Imagenes\user.jpg" />
+    <Content Include="Content\Imagenes\twitter.png" />
     <Content Include="Content\Imagenes\user1.jpg" />
+    <Content Include="Content\Imagenes\whats.png" />
     <Content Include="Content\Miestilo.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
