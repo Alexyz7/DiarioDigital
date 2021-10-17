@@ -68,7 +68,7 @@ namespace DiarioDigital.Controllers
                 cm.postID = coment.Articulo.IdArticulo;
                 db.Comentarios.Add(cm);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Articulo");
+                return RedirectToAction("Details", "Articulo", new {id =cm.postID});
             }
 
 
@@ -87,8 +87,7 @@ namespace DiarioDigital.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.userID = new SelectList(db.Usuarios, "IdUser", "Email", comentarios.userID);
-            ViewBag.postID = new SelectList(db.Articulo, "IdArticulo", "Titulo", comentarios.postID);
+           
             return View(comentarios);
         }
 
@@ -106,7 +105,7 @@ namespace DiarioDigital.Controllers
                 return RedirectToAction("Index");
             }
      
-            ViewBag.postID = new SelectList(db.Articulo, "IdArticulo", "Titulo", comentarios.postID);
+         
             return View(comentarios);
         }
 
@@ -131,9 +130,10 @@ namespace DiarioDigital.Controllers
         public ActionResult BorrarComent(int id)
         {
             Comentarios comentarios = db.Comentarios.Find(id);
+            var resultado = comentarios.postID;
             db.Comentarios.Remove(comentarios);
             db.SaveChanges();
-            return RedirectToAction("Index","Articulo");
+            return RedirectToAction("Details","Articulo", new {id = resultado});
         }
 
 
@@ -218,9 +218,10 @@ namespace DiarioDigital.Controllers
         public ActionResult Borrarsub(int id)
         {
             Subcomentarios subcoment = db.Subcomentarios.Find(id);
+            var result = subcoment.ComID;
             db.Subcomentarios.Remove(subcoment);
             db.SaveChanges();
-            return RedirectToAction("Index", "Articulo");
+            return RedirectToAction("Details", "Articulo", new {id = result});
         }
 
 

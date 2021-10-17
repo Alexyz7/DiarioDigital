@@ -70,7 +70,7 @@ namespace DiarioDigital.Controllers
                 img.InputStream.Read(articulo.Vista_previa, 0, img.ContentLength);
                 db.Articulo.Add(articulo);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Articulo", new { id = articulo.IdArticulo});
             }
 
 
@@ -125,7 +125,7 @@ namespace DiarioDigital.Controllers
                
                 db.Entry(articulo).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Articulo", new { id = articulo.IdArticulo});
             }
             ViewBag.categoriaID = new SelectList(db.Categoria, "Idcategoria", "Nombre", articulo.categoriaID);
             return View(articulo);
@@ -164,29 +164,62 @@ namespace DiarioDigital.Controllers
 
             return View(soc);
         }
-        /*
-        public async Task<ActionResult> CienciaYtecnologia() { 
-        
+
+
+        public ActionResult CienciaYtecnologia()
+        {
+
+            var soc = db.Articulo.Where(t => t.Categoria.Nombre == "Ciencia Y Tecnologia");
+
+            return View(soc);
+
         }
-        public async Task<ActionResult> Politica() { 
-        
+
+        public ActionResult Economia()
+        {
+
+            var soc = db.Articulo.Where(t => t.Categoria.Nombre == "Economia");
+
+            return View(soc);
         }
-        public async Task<ActionResult> Deportes() { 
-        
+
+        public ActionResult Politica()
+        {
+
+            var soc = db.Articulo.Where(t => t.Categoria.Nombre == "Politica");
+
+            return View(soc);
         }
-        public async Task<ActionResult> Internacional() {
-        
+        public ActionResult Deportes()
+        {
+
+            var soc = db.Articulo.Where(t => t.Categoria.Nombre == "Deportes");
+
+            return View(soc);
         }
-        public async Task<ActionResult> Cultura() { 
-        
+        public ActionResult Internacional()
+        {
+
+            var soc = db.Articulo.Where(t => t.Categoria.Nombre == "internacional");
+
+            return View(soc);
         }
-        public async Task<ActionResult> Opinion() {
-        
+        public ActionResult Cultura()
+        {
+
+            var soc = db.Articulo.Where(t => t.Categoria.Nombre == "Cultura");
+
+            return View(soc);
         }
-        public async Task<ActionResult> Economia() { 
-       
-        }
-        */
+        public ActionResult opinion()
+        {
+
+            var soc = db.Articulo.Where(t => t.Categoria.Nombre == "Opinion");
+
+            return View(soc);
+        }   
+     
+
 
 
         protected override void Dispose(bool disposing)

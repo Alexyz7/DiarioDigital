@@ -20,11 +20,11 @@
 {
 
 
-    <div class="container">
+<div class="container">
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="row" style="padding-bottom:20px">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*<div class="row" style="padding-bottom:20px">
 
             <div class="col-md-12">
                 @Html.TextAreaFor(model => model.comentarios.comentario, new { @class = "form-control", rows = 3, style = "max-width: 580px ", placeholder = "Escribir un comentario" })
@@ -42,17 +42,71 @@
 
             </div>
 
+        </div>*@
+
+<div class="row" style="padding-bottom:20px">
+
+
+    @if(User.Identity.IsAuthenticated)
+    {
+
+        DiarioOnlineEntities db = new DiarioOnlineEntities();
+
+        var useractual = db.Usuarios.FirstOrDefault(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).Nombre;
+
+        <div class="d-flex" style="color:cornflowerblue">
+        <div class="p-2 flex-grow-1">@useractual</div>
+                </div>  
+    
+    }
+
+    
+
+    <div class="d-flex align-items-center">
+
+        <div class="flex-shrink-0 align-self-start"> <img src="~/Content/Imagenes/user1.jpg" width="61" height="61"></div>
+        <div class="flex-grow-1 ms-3">
+            @Html.TextAreaFor(model => model.comentarios.comentario, new { @class = "form-control", rows = 3, style = "max-width: 580px ", placeholder = "Escribir un comentario" })
+            @Html.ValidationMessageFor(model => model.comentarios, "", new { @class = "text-danger" })
         </div>
-
-        <div class="col-md-10">
-            @Html.HiddenFor(model => model.Articulo.IdArticulo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Articulo.IdArticulo, "", new { @class = "text-danger" })
-        </div>
-
-
 
     </div>
-}
+    <div style="padding:1px"></div>
+    <div class="col text-end">
+        <label class="btn btn-secondary" for="d" style="color:white; font-size:13px">
+
+            <input type="submit" value="Comentar" id="d" hidden />
+            <i class="bi bi-brush" style="padding-right:5px; color:white"></i> Comentar
+        </label>
+    </div>
+
+</div>
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="col-md-10">
+        @Html.HiddenFor(model => model.Articulo.IdArticulo, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Articulo.IdArticulo, "", new { @class = "text-danger" })
+    </div>
+
+
+
+</div>
+    }
 
 
 

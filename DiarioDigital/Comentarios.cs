@@ -11,7 +11,8 @@ namespace DiarioDigital
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Comentarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,8 @@ namespace DiarioDigital
         }
     
         public int Idcoment { get; set; }
+
+        [Required(ErrorMessage = "El comentario no puede ser vacio")]
         public string comentario { get; set; }
         public System.DateTime DateComent { get; set; }
         public Nullable<int> postID { get; set; }

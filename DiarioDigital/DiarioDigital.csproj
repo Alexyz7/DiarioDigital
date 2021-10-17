@@ -650,6 +650,14 @@
     <Content Include="Views\Comentarios\Subcoment.cshtml" />
     <Content Include="Views\Comentarios\Mostrarsub.cshtml" />
     <Content Include="Views\Comentarios\Borrarsub.cshtml" />
+    <Content Include="Views\Articulo\Sociedad.cshtml" />
+    <Content Include="Views\Articulo\CienciaYtecnologia.cshtml" />
+    <Content Include="Views\Articulo\opinion.cshtml" />
+    <Content Include="Views\Articulo\Cultura.cshtml" />
+    <Content Include="Views\Articulo\Deportes.cshtml" />
+    <Content Include="Views\Articulo\Internacional.cshtml" />
+    <Content Include="Views\Articulo\Economia.cshtml" />
+    <Content Include="Views\Articulo\Politica.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

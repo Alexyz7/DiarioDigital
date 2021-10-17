@@ -11,10 +11,13 @@ namespace DiarioDigital
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Subcomentarios
     {
         public int IdSubcoment { get; set; }
+
+        [Required(ErrorMessage = "El comentario no puede ser vacio")]
         public string subComentario { get; set; }
         public System.DateTime fechaSub { get; set; }
         public Nullable<int> ComID { get; set; }
