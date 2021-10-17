@@ -27,17 +27,17 @@ namespace DiarioDigital.Controllers
             return View();
         }
 
-        [HttpPost]  
+        [HttpPost]
         public ActionResult Logeo(Usuarios usuarios)
-            
+
         {
-         
+
             if (Isvalid(usuarios))
             {
-                
+
                 FormsAuthentication.SetAuthCookie(usuarios.Email, false);
 
-                return RedirectToAction("Index","Articulo");
+                return RedirectToAction("Index", "Articulo");
 
             }
             TempData["Mensaje"] = "La contraseña o el usuario es incorrecto";
@@ -48,7 +48,7 @@ namespace DiarioDigital.Controllers
         {
 
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index","Articulo");
+            return RedirectToAction("Index", "Articulo");
 
         }
 

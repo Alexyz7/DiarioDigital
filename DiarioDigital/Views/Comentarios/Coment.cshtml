@@ -1,5 +1,6 @@
 ﻿
 
+
 @model  DiarioDigital.ViewModel.ArticuloComentarioViewModel
 
 
@@ -29,17 +30,15 @@
                 @Html.TextAreaFor(model => model.comentarios.comentario, new { @class = "form-control", rows = 3, style = "max-width: 580px ", placeholder = "Escribir un comentario" })
                 @Html.ValidationMessageFor(model => model.comentarios, "", new { @class = "text-danger" })
 
-                @*<div class="col-lg-2" style="padding-top:4px">
-                    <input type="submit" value="Comentar" class="btn btn-primary" />
-                </div>*@
+
 
 
                 <label class="btn btn-secondary" for="d" style="color:white; font-size:13px">
 
                     <input type="submit" value="Comentar" id="d" hidden />
                     <i class="bi bi-brush" style="padding-right:5px; color:white"></i> Comentar
-                             </label>
-              
+                </label>
+
 
             </div>
 

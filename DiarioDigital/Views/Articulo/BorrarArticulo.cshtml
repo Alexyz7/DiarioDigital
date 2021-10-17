@@ -1,4 +1,5 @@
-﻿@model DiarioDigital.Articulo
+﻿
+@model DiarioDigital.Articulo
 
 
 @{
@@ -10,13 +11,13 @@
 
 
 
-@using (Html.BeginForm("Delete", "Articulo", FormMethod.Post))
+@using (Html.BeginForm("BorrarArticulo", "Articulo", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <label class="btn btn-danger" for="x" style="color:white; font-size:15px">
 
-        <input type="submit" value="Borrar" id="x" hidden/>
+        <input type="submit" value="Borrar" id="x" hidden />
         <i class="bi bi-x-square" style="padding-right:5px; color:white"></i> Borrar
     </label>
 

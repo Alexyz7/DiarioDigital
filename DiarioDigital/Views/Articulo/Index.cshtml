@@ -14,37 +14,37 @@
         @Html.ActionLink("Nuevo post", "Create", null, new { style = "color:white; text-decoration:none; padding-left:2px;" })
     </p>
 }
-    <hr />
+<hr />
 
-    <div class="container" style="max-width:890px">
-        <p style="background-color:black; color:white">Ultimas noticias <i style="float:right" class="bi bi-clock-history"></i></p>
-        <div class="row">
+<div class="container" style="max-width:890px; min-height:500px">
+    <p style="background-color:black; color:white">Ultimas noticias <i style="float:right" class="bi bi-clock-history"></i></p>
+    <div class="row">
 
-            @foreach (var item in Model)
-            {
-
-
-                <div class="col-md-4 justify-content-center">
-                    <a style="text-decoration:none" href="@Url.Action("Details", new { id = item.IdArticulo})">
-
-                        <div class="col-md-12">
-                            <picture>
-                                @{
-                                    var base64 = Convert.ToBase64String(item.Vista_previa);
-                                    var imgss = string.Format("data:image/gif; base64, {0}", base64);
-                                }
-                                <img src="@imgss" style="height:200px; width:250px" class="rounded mx-auto d-block" />
-                            </picture>
-                            <footer style="border-bottom: 1px solid grey"><h6 style="color:darkgray; font-family:Garamond">@Html.DisplayFor(modelitem => item.Categoria.Nombre)</h6></footer>
+        @foreach (var item in Model)
+        {
 
 
+            <div class="col-md-4 justify-content-center">
+                <a style="text-decoration:none" href="@Url.Action("Details", new { id = item.IdArticulo})">
 
-                            <p style="color:black; font-size:20px ;line-height:23px ;font-family: Times New Roman, serif">@Html.DisplayFor(modelItem => item.Titulo)</p>
+                    <div class="col-md-12">
+                        <picture>
+                            @{
+                                var base64 = Convert.ToBase64String(item.Vista_previa);
+                                var imgss = string.Format("data:image/gif; base64, {0}", base64);
+                            }
+                            <img src="@imgss" style="height:200px; width:250px" class="rounded mx-auto d-block" />
+                        </picture>
+                        <footer style="border-bottom: 1px solid grey"><h6 style="color:darkgray; font-family:Garamond">@Html.DisplayFor(modelitem => item.Categoria.Nombre)</h6></footer>
 
-                        </div>
-                    </a>
-                </div>
-            }
 
-        </div>
+
+                        <p style="color:black; font-size:20px ;line-height:23px ;font-family: Times New Roman, serif">@Html.DisplayFor(modelItem => item.Titulo)</p>
+
+                    </div>
+                </a>
+            </div>
+        }
+
     </div>
+</div>

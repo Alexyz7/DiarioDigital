@@ -1,0 +1,28 @@
+﻿
+@model DiarioDigital.Comentarios
+
+@{
+
+
+    Layout = null;
+
+}
+
+
+
+@using (Html.BeginForm("BorrarComent", "Comentarios", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <label class="btn btn-danger" for="g" style="color:white; font-size:13px">
+
+        <input type="submit" value="BorrarComent" id="g" hidden />
+        <i class="bi bi-x-square" style="padding-right:5px; color:white"></i> Borrar
+    </label>
+
+}
+
+
+
+
+

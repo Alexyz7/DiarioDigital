@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi aplicación ASP.NET</title>
 
-    <link href="~/Content/Miestilo.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Miestilo.Css")" rel="stylesheet" />
     @Styles.Render("~/Content/bootstrap.min.css")
     <script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -19,7 +19,7 @@
 
 <body style="background-color:black">
 
-    <div class="container" style="border: 2px solid red; max-width:920px; background-color:white">
+    <div class="container"  id="ContenedorPrincipal">
         <div class="row justify-content-center" style="padding-top:10px">
             <div class="row">
                 <div class="col align-self-end" style="font-family:Garamond; font-weight:bolder; font-size:20px">@DateTime.Now.ToString(" dd MMMM yyyy HH: mm")</div>
@@ -82,23 +82,28 @@
             </div>
 
 
-        <div class="container" style="max-width:890px; min-height:800px">
+        <div class="container" style="max-width:890px">
 
             @RenderBody()
             <hr />
-            <footer class="text-center text-lg-start bg-light text-muted">
-                <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+          
+                <footer class="text-center text-lg-start bg-light text-muted" id="pie">
+                    <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
 
-                <div class="d-flex flex-row mb-3 justify-content-end">
-                   
+                    <div class="d-flex flex-row mb-3 justify-content-end">
+
                         <a><img src="~/Content/Imagenes/face.png" width="38" height="38" /></a>
                         <a><img src="~/Content/Imagenes/insta.png" width="38" height="38" /></a>
                         <a><img src="~/Content/Imagenes/twitter.png" width="38" height="38" /></a>
                         <a><img src="~/Content/Imagenes/whats.png" width="38" height="38" /></a>
-                   
 
-                </div>
-            </footer>
+
+                    </div>
+                </footer>
+
+
+
+           
     
         </div>    
 

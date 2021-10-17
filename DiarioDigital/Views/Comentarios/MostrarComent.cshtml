@@ -9,52 +9,81 @@
 
 }
 
+<script>
+
+    function myFunction() {
+        var x = document.getElementById("Display");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+</script>
+
 
 
 
 @foreach (var item in Model)
 {
 
-<div class="container" style="padding-top:10px">
+    <div class="container" style="padding-top:10px">
 
-    <div class="row" style="background-color:white">
-        @Html.HiddenFor(modelItem => item.Idcoment)
+        <div class="row" style="background-color:white">
+            @Html.HiddenFor(modelItem => item.Idcoment)
 
-        <div class="d-flex" style="color:cornflowerblue">
+            <div class="d-flex" style="color:cornflowerblue">
+
+                <div class="p-2 flex-grow-1">@Html.DisplayFor(modelItem => item.Usuarios.Nombre) </div> <div class="p-2">@item.DateComent</div>
+            </div>
+
+            <div class="d-flex align-items-center">
+
+                <div class="flex-shrink-0 align-self-start"> <img src="~/Content/Imagenes/user1.jpg" width="61" height="61"></div>
+                <div class="flex-grow-1 ms-3" style="background-color:white">@Html.DisplayFor(modelItem => item.comentario) </div>
+
+            </div>
+
+
+            @if (User.Identity.IsAuthenticated)
+
+            {
+
+                <div class="d-flex justify-content-center">
+                    <div class="flex-shrink-0 align-self-start"> @Html.Action("BorrarComent", "Comentarios", new { id = item.Idcoment })</div>
+                    <div class="flex-grow-1 ms-3">  <button onclick="myFunction()" type="button">Responder</button></div>
+                </div>
+
+                <div id="Display" class="col-md-12" style="display:none">
+                    @Html.Action("Subcoment", "Comentarios", new { id = item.Idcoment })
+                </div>
+
+            }
 
 
 
-            <div class="p-2 flex-grow-1">@Html.DisplayFor(modelItem => item.Usuarios.Nombre) </div> <div class="p-2">@item.DateComent</div>
+            @if (item.Subcomentarios != null)
+            {
+
+                <div class="col-md-12"> @Html.Action("Mostrarsub", "Comentarios", new { id = item.Idcoment }) </div>
+
+
+            }
 
 
 
 
         </div>
-
-        <div class="d-flex align-items-center">
-
-            <div class="flex-shrink-0 align-self-start"> <img src="~/Content/Imagenes/user1.jpg" width="61" height="61"></div>
-            <div class="flex-grow-1 ms-3" style="background-color:white">@Html.DisplayFor(modelItem => item.comentario) </div>
-
-        </div>
-
-
-        @if (User.Identity.IsAuthenticated)
-
-        {
-
-
-            <div class="row"><div class="flex-shrink-0 align-self-start"> @Html.Action("Delete", "Comentarios", new { id = item.Idcoment })</div></div>
-
-
-        }
-
-
     </div>
-
-
-</div>
 }
+
+
+
+
+
+
+
 
 
 

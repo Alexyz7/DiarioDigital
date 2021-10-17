@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System;
 namespace DiarioDigital.Controllers
 
 {
@@ -13,22 +14,22 @@ namespace DiarioDigital.Controllers
         private DiarioOnlineEntities db = new DiarioOnlineEntities();
 
         // GET: Articulo
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
 
             var art = db.Articulo.Include(a => a.Categoria).Include(a => a.Comentarios);
-            return View(await art.ToListAsync());
+            return View(art.ToList());
         }
 
         // GET: Articulo/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Articulo articulo = await db.Articulo.FindAsync(id);
-           
+            Articulo articulo = db.Articulo.Find(id);
+
 
             if (articulo == null)
             {
@@ -37,12 +38,12 @@ namespace DiarioDigital.Controllers
 
 
 
-          
+
             return View(articulo);
         }
 
 
- 
+
 
 
         // GET: Articulo/Create
@@ -64,6 +65,7 @@ namespace DiarioDigital.Controllers
 
             if (ModelState.IsValid)
             {
+                articulo.Fecha = DateTime.UtcNow;
                 articulo.Vista_previa = new byte[img.ContentLength];
                 img.InputStream.Read(articulo.Vista_previa, 0, img.ContentLength);
                 db.Articulo.Add(articulo);
@@ -78,13 +80,13 @@ namespace DiarioDigital.Controllers
         }
 
         // GET: Articulo/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Articulo articulo = await db.Articulo.FindAsync(id);
+            Articulo articulo = db.Articulo.Find(id);
             if (articulo == null)
             {
                 return HttpNotFound();
@@ -102,11 +104,12 @@ namespace DiarioDigital.Controllers
         {
             byte[] imageNactual = null;
 
+           
             if (img == null)
             {
 
-                imageNactual = db.Articulo.SingleOrDefault(t => t.IdArticulo == articulo.IdArticulo).Vista_previa;
-
+                imageNactual = db.Articulo.AsNoTracking().FirstOrDefault(t => t.IdArticulo == articulo.IdArticulo).Vista_previa;
+                articulo.Vista_previa = imageNactual;
             }
 
             else
@@ -117,12 +120,10 @@ namespace DiarioDigital.Controllers
 
             }
 
-
             if (ModelState.IsValid)
             {
                
-                var art = db.Articulo.Find(articulo.IdArticulo);
-                db.Entry(art).CurrentValues.SetValues(articulo);
+                db.Entry(articulo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -131,7 +132,7 @@ namespace DiarioDigital.Controllers
         }
 
         // GET: Articulo/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult BorrarArticulo(int? id)
         {
             if (id == null)
             {
@@ -146,11 +147,11 @@ namespace DiarioDigital.Controllers
         }
 
         // POST: Articulo/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateInput(false)]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult BorrarArticulo(int id)
         {
-            Articulo articulo =  db.Articulo.Find(id);
+            Articulo articulo = db.Articulo.Find(id);
             db.Articulo.Remove(articulo);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -11,8 +11,7 @@ namespace DiarioDigital
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Comentarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,15 +22,13 @@ namespace DiarioDigital
     
         public int Idcoment { get; set; }
         public string comentario { get; set; }
-
-        [DataType(DataType.Date)]
         public System.DateTime DateComent { get; set; }
-        public int postID { get; set; }
-        public int userID { get; set; }
+        public Nullable<int> postID { get; set; }
+        public Nullable<int> userID { get; set; }
     
-        public virtual Usuarios Usuarios { get; set; }
+        public virtual Articulo Articulo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subcomentarios> Subcomentarios { get; set; }
-        public virtual Articulo Articulo { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

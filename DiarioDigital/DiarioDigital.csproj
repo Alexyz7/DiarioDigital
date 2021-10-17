@@ -268,42 +268,42 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Articulo.cs">
-      <DependentUpon>ModelDiario.tt</DependentUpon>
+      <DependentUpon>DiarioDigital.tt</DependentUpon>
     </Compile>
     <Compile Include="Categoria.cs">
-      <DependentUpon>ModelDiario.tt</DependentUpon>
+      <DependentUpon>DiarioDigital.tt</DependentUpon>
     </Compile>
     <Compile Include="Comentarios.cs">
-      <DependentUpon>ModelDiario.tt</DependentUpon>
+      <DependentUpon>DiarioDigital.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ArticuloController.cs" />
     <Compile Include="Controllers\ComentariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="DiarioDigital.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiarioDigital.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DiarioDigital.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiarioDigital.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DiarioDigital.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiarioDigital.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelDiario.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDiario.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelDiario.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDiario.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelDiario.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDiario.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subcomentarios.cs">
-      <DependentUpon>ModelDiario.tt</DependentUpon>
+      <DependentUpon>DiarioDigital.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.cs">
-      <DependentUpon>ModelDiario.tt</DependentUpon>
+      <DependentUpon>DiarioDigital.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ArticuloComentarioViewModel.cs" />
   </ItemGroup>
@@ -332,26 +332,19 @@
     <Content Include="Content\Imagenes\user1.jpg" />
     <Content Include="Content\Imagenes\whats.png" />
     <Content Include="Content\Miestilo.css" />
+    <Content Include="DiarioDigital.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DiarioDigital.edmx</DependentUpon>
+      <LastGenOutput>DiarioDigital.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DiarioDigital.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DiarioDigital.edmx</DependentUpon>
+      <LastGenOutput>DiarioDigital.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="ModelDiario.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDiario.edmx</DependentUpon>
-      <LastGenOutput>ModelDiario.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ModelDiario.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDiario.edmx</DependentUpon>
-      <LastGenOutput>ModelDiario.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="ModelDiario.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelDiario.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="ModelDiario.edmx.diagram">
-      <DependentUpon>ModelDiario.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -389,6 +382,13 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <EntityDeploy Include="DiarioDigital.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DiarioDigital.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DiarioDigital.edmx.diagram">
+      <DependentUpon>DiarioDigital.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -633,20 +633,23 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Articulo\Create.cshtml" />
-    <Content Include="Views\Articulo\Details.cshtml" />
-    <Content Include="Views\Articulo\Edit.cshtml" />
-    <Content Include="Views\Articulo\Index.cshtml" />
     <Content Include="Views\Usuario\Create.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Usuario\Details.cshtml" />
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\Logeo.cshtml" />
-    <Content Include="Views\Comentarios\Coment.cshtml" />
+    <Content Include="Views\Articulo\Index.cshtml" />
+    <Content Include="Views\Articulo\Details.cshtml" />
+    <Content Include="Views\Articulo\Create.cshtml" />
+    <Content Include="Views\Articulo\Edit.cshtml" />
+    <Content Include="Views\Articulo\BorrarArticulo.cshtml" />
     <Content Include="Views\Comentarios\MostrarComent.cshtml" />
-    <Content Include="Views\Comentarios\Delete.cshtml" />
-    <Content Include="Views\Articulo\Delete.cshtml" />
+    <Content Include="Views\Comentarios\Coment.cshtml" />
+    <Content Include="Views\Comentarios\BorrarComent.cshtml" />
+    <Content Include="Views\Comentarios\Subcoment.cshtml" />
+    <Content Include="Views\Comentarios\Mostrarsub.cshtml" />
+    <Content Include="Views\Comentarios\Borrarsub.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

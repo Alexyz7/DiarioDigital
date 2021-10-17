@@ -1,0 +1,45 @@
+﻿
+@model  DiarioDigital.ViewModel.ArticuloComentarioViewModel
+
+@{
+    ViewBag.Title = "Subcoment";
+    Layout = null;
+}
+
+
+
+@using (Html.BeginForm("Subcoment", "Comentarios", FormMethod.Post))
+{
+
+
+    <div class="container">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row" style="padding-bottom:20px">
+
+            <div class="col-md-12">
+                @Html.TextAreaFor(model => model.subcomentario.subComentario, new { @class = "form-control", rows = 3, style = "max-width: 580px ", placeholder = "Escribir un comentario" })
+                @Html.ValidationMessageFor(model => model.subcomentario.subComentario, "", new { @class = "text-danger" })
+
+
+                <label class="btn btn-secondary" for="o" style="color:white; font-size:13px">
+
+                    <input type="submit" value="Comentar" id="o" hidden />
+                    <i class="bi bi-brush" style="padding-right:5px; color:white"></i> Responder
+                </label>
+
+
+            </div>
+
+        </div>
+
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.comentarios.Idcoment, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.comentarios.Idcoment, "", new { @class = "text-danger" })
+        </div>
+
+
+
+    </div>
+}

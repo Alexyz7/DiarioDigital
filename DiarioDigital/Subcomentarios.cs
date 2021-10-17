@@ -16,9 +16,9 @@ namespace DiarioDigital
     {
         public int IdSubcoment { get; set; }
         public string subComentario { get; set; }
-        public Nullable<System.DateTime> fechaSub { get; set; }
-        public int ComID { get; set; }
-        public int UserID { get; set; }
+        public System.DateTime fechaSub { get; set; }
+        public Nullable<int> ComID { get; set; }
+        public Nullable<int> Usuario_id { get; set; }
     
         public virtual Comentarios Comentarios { get; set; }
         public virtual Usuarios Usuarios { get; set; }

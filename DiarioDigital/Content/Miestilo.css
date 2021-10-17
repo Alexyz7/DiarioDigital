@@ -1,11 +1,32 @@
 ﻿@import url('Miestilo.css');
 
 
-body {
+html, body {
     padding-top: 0px;
-    padding-bottom: 20px;
-
+    padding-bottom: 0px;
+    margin: 0;
+    height:100%;
+    
 }
+
+
+#ContenedorPrincipal {
+
+    border: 2px solid red; 
+    max-width:920px; 
+    background-color:white;
+    min-height:100%;
+}
+
+
+#pie {
+
+    bottom: 0 ; 
+    height: 100px;
+    clear: both;
+}
+
+
 
 [hidden] {
     display: none !important;

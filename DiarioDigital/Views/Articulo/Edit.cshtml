@@ -59,6 +59,9 @@
 
     <div class="container">
 
+        @Html.HiddenFor(model => model.IdArticulo)
+        @Html.HiddenFor(model => model.Fecha)
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row" style="padding-bottom:20px">
