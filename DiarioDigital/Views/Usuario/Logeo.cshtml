@@ -3,35 +3,64 @@
     ViewBag.Title = "Logeo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br /><br />
-<h2>Introduzca sus datos</h2>
+
+
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+
+
+<script>
+    $(function () {
+        $("#mostrar").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+            $("[id*=mg]").attr("type", type);
+        });
+    });
+</script>
+
+
+
+<br />
+<br />
+<h4 style="background-color:black; color:white; font-family:Garamond">Introduzca sus datos</h4>
 <hr />
 
 @using (Html.BeginForm())
 {
-<div class="container">
+<div class="container" style="min-height:468px">
 
     <div class="row" style="padding-bottom:20px">
 
-        @Html.LabelFor(u => u.Email, "Correo electronico", htmlAttributes: new { @class = "control-label col-md-3" })
-        <div class="col-md-9">
-            @Html.TextBoxFor(u => u.Email, new { type = "Email" })
+        @Html.LabelFor(u => u.Email, "Correo electronico", htmlAttributes: new { @class = "control-label", style = "padding-bottom:10px" })
+        <div class="col-md-4">
+            @Html.TextBox("Email", null, new { @class = "form-control", placeholder = "Ingrese su Email", required = "required" })
         </div>
     </div>
 
     <div class="row" style="padding-bottom:20px">
 
-        @Html.LabelFor(u => u.Contraseña, htmlAttributes: new { @class = "control-label col-md-3" })
-        <div class="col-md-9">  @Html.PasswordFor(u => u.Contraseña)</div>
+        @Html.LabelFor(u => u.Contraseña, htmlAttributes: new { @class = "control-label", style = "padding-bottom:10px" })
+        <div class="col-md-4">@Html.Password("Contraseña", null, new { @class = "form-control", placeholder = "Password", id = "mg", required = "required" })</div><div class="col"> <span id="mostrar" style="cursor:pointer" class="fa fa-fw fa-eye field_icon"></span>   </div>
 
 
     </div>
 
-    <div class="row"> <div class="col-md-4"><input type="submit" value="Iniciar Sesion" class="btn btn-success" /></div></div>
+    <div class="row" style="padding-top:10px"> <div class="col-md-4"><input type="submit" value="Iniciar Sesion" class="btn btn-success" /></div></div>
 
-    <hr />
+    @if (TempData["Mensaje"] != null)
+    {
+        <span style="color:red;">@TempData["Mensaje"].ToString()</span>
+    }
+
+    <hr /><br />
     <p>Si no tienes una cuenta puedes registrarte  <span class="bi bi-person-plus-fill btn btn-danger">@Html.ActionLink("Registrarse", "create", "Usuario", null, new { Style = "text-decoration:none; color:white; padding-left:2px" })</span></p>
 
 
 </div>
 }
+
+
+
+

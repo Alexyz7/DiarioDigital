@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<DiarioDigital.Comentarios>
 
 
-
 @{
 
     Layout = null;
@@ -9,10 +8,41 @@
 
 }
 
+
+
 <script>
 
-    function myFunction() {
-        var x = document.getElementById("Display");
+
+
+
+
+
+
+
+        //$(document).on("click", ".tocar", function () {
+
+        //    $(this).next('.class').toggle();
+
+        //});
+  
+
+    $(document).ready(function () {
+        $('.tocar').click(function () {
+            $(this).closest('.class').toggle();
+        });
+    });
+ 
+    
+   
+  
+</script>
+
+
+<script>
+
+    function funcion2() {
+        var x = document.getElementById("mc");
+
         if (x.style.display === "none") {
             x.style.display = "block";
         } else {
@@ -25,8 +55,14 @@
 
 
 
+
+
 @foreach (var item in Model)
 {
+
+
+
+
 
     <div class="container" style="padding-top:10px">
 
@@ -50,17 +86,31 @@
 
             {
 
-                <div class="d-flex justify-content-center">
-                    <div class="flex-shrink-0 align-self-start"> @Html.Action("BorrarComent", "Comentarios", new { id = item.Idcoment })</div>
-                    <div class="flex-grow-1 ms-3">  <button onclick="myFunction()" type="button">Responder</button></div>
-                </div>
+                DiarioOnlineEntities db = new DiarioOnlineEntities();
+                var useractual = db.Usuarios.FirstOrDefault(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).Nombre;
 
-                <div id="Display" class="col-md-12" style="display:none">
+
+
+                if (useractual == item.Usuarios.Nombre)
+
+                {
+
+                    <div class="d-flex justify-content-center">
+                        <div class="flex-shrink-0 align-self-start"> @Html.Action("BorrarComent", "Comentarios", new { id = item.Idcoment })</div>
+                        <button onclick="funcion2()" type="button">Editar comentario</button>
+                    </div>
+                  <div id="mc" class="col-md-12" style="display:none">@Html.Action("Edit", "Comentarios", new { id = item.Idcoment })</div>
+
+
+                }
+
+                <div class="class"  style="display:none">
                     @Html.Action("Subcoment", "Comentarios", new { id = item.Idcoment })
                 </div>
+                <div class="col"><button class="tocar" type="button" data-id="@item.Idcoment" onclick="myFun(this)">Responder</button></div>
+
 
             }
-
 
 
             @if (item.Subcomentarios != null)
@@ -69,9 +119,8 @@
                 <div class="col-md-12"> @Html.Action("Mostrarsub", "Comentarios", new { id = item.Idcoment }) </div>
 
 
+
             }
-
-
 
 
         </div>
@@ -81,6 +130,7 @@
 
 
 
+@*<div class="flex-grow-1 ms-3">  <button onclick="myFunction()" type="button">Responder</button></div>*@
 
 
 

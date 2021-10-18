@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "prueba";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#mc").load('@Url.Action("/Comentarios/Edit")');
+    });
+</script>
+
+
+
+
+<h2>prueba</h2>
+
+
+
+
+    <div class="row" style="min-height:400px">
+
+
+        <div class="col-md-12">
+
+
+            <div id="mc"></div>
+
+
+
+        </div>
+
+    </div>
+

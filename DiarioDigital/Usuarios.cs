@@ -11,6 +11,7 @@ namespace DiarioDigital
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     
     public partial class Usuarios
@@ -25,8 +26,16 @@ namespace DiarioDigital
         }
     
         public int IdUser { get; set; }
+
+        [Required(ErrorMessage = "Ingrese una direccion de correo")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Ingrese una contraseña")]
+        [StringLength(16, ErrorMessage = "La cantidad de digitos debe ser mayor que 7", MinimumLength = 8)]
+        [DataType(DataType.Password)]
         public string Contraseña { get; set; }
+
+        [Required(ErrorMessage = "Ingrese un nombre")]
         public string Nombre { get; set; }
 
 

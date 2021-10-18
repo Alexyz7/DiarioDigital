@@ -12,7 +12,7 @@ html, body {
 
 #ContenedorPrincipal {
 
-    border: 2px solid red; 
+    border: 2px solid yellow; 
     max-width:920px; 
     background-color:white;
     min-height:100%;
@@ -21,9 +21,10 @@ html, body {
 
 #pie {
 
-    bottom: 0 ; 
+    bottom: 0; 
     height: 100px;
     clear: both;
+    
 }
 
 
@@ -44,9 +45,11 @@ html, body {
 
 
 #barraPrin li a{
+
     font-family: Garamond;
     font-size: 18px;
     color: white !important;
+    height:100%;
 }
 
 

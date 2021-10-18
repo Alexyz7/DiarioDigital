@@ -658,6 +658,8 @@
     <Content Include="Views\Articulo\Internacional.cshtml" />
     <Content Include="Views\Articulo\Economia.cshtml" />
     <Content Include="Views\Articulo\Politica.cshtml" />
+    <Content Include="Views\Comentarios\Edit.cshtml" />
+    <Content Include="Views\Comentarios\prueba.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
