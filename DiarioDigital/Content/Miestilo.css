@@ -12,17 +12,24 @@ html, body {
 
 #ContenedorPrincipal {
 
-    border: 2px solid yellow; 
     max-width:920px; 
     background-color:white;
     min-height:100%;
 }
 
+.redes a:hover {
+
+    background-color: white;
+}
+
+.underline-on-hover:hover {
+    text-decoration: underline;
+}
 
 #pie {
 
     bottom: 0; 
-    height: 100px;
+    height: 140px;
     clear: both;
     
 }
@@ -41,7 +48,12 @@ html, body {
 
 
 
+.tocar{
 
+    width:100px !important;
+ 
+
+}
 
 
 #barraPrin li a{

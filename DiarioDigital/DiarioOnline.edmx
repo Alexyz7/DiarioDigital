@@ -32,16 +32,7 @@
           <Property Name="DateComent" Type="datetime" Nullable="false" />
           <Property Name="postID" Type="int" />
           <Property Name="userID" Type="int" />
-        </EntityType>
-        <EntityType Name="Subcomentarios">
-          <Key>
-            <PropertyRef Name="IdSubcoment" />
-          </Key>
-          <Property Name="IdSubcoment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="subComentario" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="fechaSub" Type="datetime" Nullable="false" />
-          <Property Name="ComID" Type="int" />
-          <Property Name="Usuario_id" Type="int" />
+          <Property Name="comentsubID" Type="int" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -80,27 +71,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_iduser">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
-          <End Role="Subcomentarios" Type="Self.Subcomentarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="IdUser" />
-            </Principal>
-            <Dependent Role="Subcomentarios">
-              <PropertyRef Name="Usuario_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_subs">
+        <Association Name="fk_comentsub">
           <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="0..1" />
-          <End Role="Subcomentarios" Type="Self.Subcomentarios" Multiplicity="*" />
+          <End Role="Comentarios1" Type="Self.Comentarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comentarios">
               <PropertyRef Name="Idcoment" />
             </Principal>
-            <Dependent Role="Subcomentarios">
-              <PropertyRef Name="ComID" />
+            <Dependent Role="Comentarios1">
+              <PropertyRef Name="comentsubID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -122,7 +101,6 @@
           <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comentarios" EntityType="Self.Comentarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Subcomentarios" EntityType="Self.Subcomentarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_ArtComent" Association="Self.fk_ArtComent">
             <End Role="Articulo" EntitySet="Articulo" />
@@ -132,13 +110,9 @@
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Articulo" EntitySet="Articulo" />
           </AssociationSet>
-          <AssociationSet Name="fk_iduser" Association="Self.fk_iduser">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="Subcomentarios" EntitySet="Subcomentarios" />
-          </AssociationSet>
-          <AssociationSet Name="fk_subs" Association="Self.fk_subs">
+          <AssociationSet Name="fk_comentsub" Association="Self.fk_comentsub">
             <End Role="Comentarios" EntitySet="Comentarios" />
-            <End Role="Subcomentarios" EntitySet="Subcomentarios" />
+            <End Role="Comentarios1" EntitySet="Comentarios" />
           </AssociationSet>
           <AssociationSet Name="fk_UserComent" Association="Self.fk_UserComent">
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -180,21 +154,11 @@
           <Property Name="DateComent" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="postID" Type="Int32" />
           <Property Name="userID" Type="Int32" />
+          <Property Name="comentsubID" Type="Int32" />
           <NavigationProperty Name="Articulo" Relationship="Self.fk_ArtComent" FromRole="Comentarios" ToRole="Articulo" />
-          <NavigationProperty Name="Subcomentarios" Relationship="Self.fk_subs" FromRole="Comentarios" ToRole="Subcomentarios" />
+          <NavigationProperty Name="Comentarios1" Relationship="Self.fk_comentsub" FromRole="Comentarios" ToRole="Comentarios1" />
+          <NavigationProperty Name="Comentarios2" Relationship="Self.fk_comentsub" FromRole="Comentarios1" ToRole="Comentarios" />
           <NavigationProperty Name="Usuarios" Relationship="Self.fk_UserComent" FromRole="Comentarios" ToRole="Usuarios" />
-        </EntityType>
-        <EntityType Name="Subcomentarios">
-          <Key>
-            <PropertyRef Name="IdSubcoment" />
-          </Key>
-          <Property Name="IdSubcoment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="subComentario" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fechaSub" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ComID" Type="Int32" />
-          <Property Name="Usuario_id" Type="Int32" />
-          <NavigationProperty Name="Comentarios" Relationship="Self.fk_subs" FromRole="Subcomentarios" ToRole="Comentarios" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.fk_iduser" FromRole="Subcomentarios" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -205,7 +169,6 @@
           <Property Name="Contraseña" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Comentarios" Relationship="Self.fk_UserComent" FromRole="Usuarios" ToRole="Comentarios" />
-          <NavigationProperty Name="Subcomentarios" Relationship="Self.fk_iduser" FromRole="Usuarios" ToRole="Subcomentarios" />
         </EntityType>
         <Association Name="fk_ArtComent">
           <End Role="Articulo" Type="Self.Articulo" Multiplicity="0..1">
@@ -235,15 +198,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_subs">
+        <Association Name="fk_comentsub">
           <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="0..1" />
-          <End Role="Subcomentarios" Type="Self.Subcomentarios" Multiplicity="*" />
+          <End Role="Comentarios1" Type="Self.Comentarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comentarios">
               <PropertyRef Name="Idcoment" />
             </Principal>
-            <Dependent Role="Subcomentarios">
-              <PropertyRef Name="ComID" />
+            <Dependent Role="Comentarios1">
+              <PropertyRef Name="comentsubID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -261,23 +224,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_iduser">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
-          <End Role="Subcomentarios" Type="Self.Subcomentarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="IdUser" />
-            </Principal>
-            <Dependent Role="Subcomentarios">
-              <PropertyRef Name="Usuario_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DiarioOnlineEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Articulo" EntityType="Self.Articulo" />
           <EntitySet Name="Categoria" EntityType="Self.Categoria" />
           <EntitySet Name="Comentarios" EntityType="Self.Comentarios" />
-          <EntitySet Name="Subcomentarios" EntityType="Self.Subcomentarios" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="fk_ArtComent" Association="Self.fk_ArtComent">
             <End Role="Articulo" EntitySet="Articulo" />
@@ -287,17 +237,13 @@
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Articulo" EntitySet="Articulo" />
           </AssociationSet>
-          <AssociationSet Name="fk_subs" Association="Self.fk_subs">
+          <AssociationSet Name="fk_comentsub" Association="Self.fk_comentsub">
             <End Role="Comentarios" EntitySet="Comentarios" />
-            <End Role="Subcomentarios" EntitySet="Subcomentarios" />
+            <End Role="Comentarios1" EntitySet="Comentarios" />
           </AssociationSet>
           <AssociationSet Name="fk_UserComent" Association="Self.fk_UserComent">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Comentarios" EntitySet="Comentarios" />
-          </AssociationSet>
-          <AssociationSet Name="fk_iduser" Association="Self.fk_iduser">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="Subcomentarios" EntitySet="Subcomentarios" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -334,17 +280,7 @@
                 <ScalarProperty Name="DateComent" ColumnName="DateComent" />
                 <ScalarProperty Name="postID" ColumnName="postID" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Subcomentarios">
-            <EntityTypeMapping TypeName="DiarioOnlineModel.Subcomentarios">
-              <MappingFragment StoreEntitySet="Subcomentarios">
-                <ScalarProperty Name="IdSubcoment" ColumnName="IdSubcoment" />
-                <ScalarProperty Name="subComentario" ColumnName="subComentario" />
-                <ScalarProperty Name="fechaSub" ColumnName="fechaSub" />
-                <ScalarProperty Name="ComID" ColumnName="ComID" />
-                <ScalarProperty Name="Usuario_id" ColumnName="Usuario_id" />
+                <ScalarProperty Name="comentsubID" ColumnName="comentsubID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

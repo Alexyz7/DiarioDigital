@@ -21,7 +21,7 @@ namespace DiarioDigital.Controllers
             return View(comentarios.ToList());
         }
 
-        // GET: Comentarios/MostrarComent/
+     
         public ActionResult MostrarComent(int? id)
         {
 
@@ -33,6 +33,19 @@ namespace DiarioDigital.Controllers
         }
 
 
+
+        public ActionResult MostrarSubcomentario(int? id)
+        {
+
+            var mostrarsub = db.Comentarios.Where(g => g.Idcoment == id).Select(x => x.comentsubID).SingleOrDefault(); 
+
+
+            return View(mostrarsub);
+        }
+
+
+
+
         public ActionResult prueba()
         {
 
@@ -41,7 +54,7 @@ namespace DiarioDigital.Controllers
         }
 
 
-        // GET: Comentarios/Create
+        // GET: 
         public ActionResult Coment(int? id)
         {
 
@@ -98,7 +111,7 @@ namespace DiarioDigital.Controllers
                 return HttpNotFound();
             }
            
-            return PartialView("Edit",comentarios);
+            return View(comentarios);
         }
 
         // POST: Comentarios/Edit/5
@@ -117,7 +130,7 @@ namespace DiarioDigital.Controllers
             }
      
          
-            return PartialView("Edit",comentarios);
+            return View(comentarios);
         }
 
         // GET: Comentarios/Delete/5
@@ -149,96 +162,54 @@ namespace DiarioDigital.Controllers
 
 
 
-
-
-        public ActionResult Subcoment(int? id)
+        public ActionResult subcoment(int? id)
         {
 
-            Comentarios cm = db.Comentarios.Find(id);
+            var coment = db.Comentarios.Find(id);
+
+          
 
 
-            ViewModel.ArticuloComentarioViewModel dato = new ViewModel.ArticuloComentarioViewModel
+
+            ViewModel.ArticuloComentarioViewModel datocoment = new ViewModel.ArticuloComentarioViewModel
             {
 
-                comentarios = cm
-
+                comentarios = coment,
+       
             };
 
-
-            return View(dato);
-
+            return View(datocoment);
         }
 
 
+
+
+        [Authorize]
         [HttpPost]
-        public ActionResult Subcoment(ViewModel.ArticuloComentarioViewModel sub)
+        public ActionResult subcoment(ViewModel.ArticuloComentarioViewModel sub, int idcoment)
         {
             var useractual = db.Usuarios.FirstOrDefault(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).IdUser;
 
+            var postid = db.Comentarios.Where(x => x.Idcoment == idcoment).Select(c => c.postID).SingleOrDefault();
 
-            var sub1 = new Subcomentarios();
+           var cm = new Comentarios();
+
             if (sub != null)
             {
-                sub1.IdSubcoment = sub.subcomentario.IdSubcoment;
-                sub1.fechaSub = DateTime.UtcNow;
-                sub1.Usuario_id = useractual;
-                sub1.ComID = sub.comentarios.Idcoment;
-                sub1.subComentario = sub.subcomentario.subComentario;
-                db.Subcomentarios.Add(sub1);
+                cm.Idcoment = sub.comentarios.Idcoment;
+                cm.DateComent = DateTime.UtcNow;
+                cm.comentario = sub.comentarios.comentario;
+                cm.userID = useractual;
+                cm.comentsubID = idcoment;
+                cm.postID = postid;
+                db.Comentarios.Add(cm);
                 db.SaveChanges();
-                return RedirectToAction("index", "Articulo");
+                return RedirectToAction("Details", "Articulo", new { id = cm.postID });
             }
 
-            return View(sub);
 
+            return View(cm);
         }
-
-
-
-        public ActionResult Mostrarsub(int? id)
-        {
-
-            var mostcoment = db.Subcomentarios.Include("Comentarios").Where(x => x.ComID == id);
-
-
-            return View(mostcoment);
-        }
-
-
-
-
-
-
-        public ActionResult Borrarsub(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Subcomentarios subcoment = db.Subcomentarios.Find(id);
-            if (subcoment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subcoment);
-        }
-
-        // POST: Comentarios/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Borrarsub(int id)
-        {
-            Subcomentarios subcoment = db.Subcomentarios.Find(id);
-            var result = subcoment.ComID;
-            db.Subcomentarios.Remove(subcoment);
-            db.SaveChanges();
-            return RedirectToAction("Details", "Articulo", new {id = result});
-        }
-
-
-
-
-
 
 
 

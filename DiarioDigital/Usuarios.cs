@@ -13,7 +13,7 @@ namespace DiarioDigital
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    
+
     public partial class Usuarios
     {
         private DiarioOnlineEntities db = new DiarioOnlineEntities();
@@ -22,9 +22,8 @@ namespace DiarioDigital
         public Usuarios()
         {
             this.Comentarios = new HashSet<Comentarios>();
-            this.Subcomentarios = new HashSet<Subcomentarios>();
         }
-    
+
         public int IdUser { get; set; }
 
         [Required(ErrorMessage = "Ingrese una direccion de correo")]
@@ -38,10 +37,7 @@ namespace DiarioDigital
         [Required(ErrorMessage = "Ingrese un nombre")]
         public string Nombre { get; set; }
 
-
-
-
-        public bool autenticar()
+       public bool autenticar()
         {
 
             return db.Usuarios.Where(x => x.Email == this.Email && x.Contraseña == this.Contraseña).FirstOrDefault() != null;
@@ -51,7 +47,12 @@ namespace DiarioDigital
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentarios> Comentarios { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subcomentarios> Subcomentarios { get; set; }
+
+
     }
 }
+
+
+
+
+

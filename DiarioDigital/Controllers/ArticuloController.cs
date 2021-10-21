@@ -1,13 +1,14 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System;
-namespace DiarioDigital.Controllers
+using DiarioDigital;
 
+namespace DiarioDigital.Controllers
 {
     public class ArticuloController : Controller
     {
@@ -16,9 +17,8 @@ namespace DiarioDigital.Controllers
         // GET: Articulo
         public ActionResult Index()
         {
-
-            var art = db.Articulo.Include(a => a.Categoria).Include(a => a.Comentarios);
-            return View(art.ToList());
+            var articulo = db.Articulo.Include(a => a.Categoria);
+            return View(articulo.ToList());
         }
 
         // GET: Articulo/Details/5
@@ -29,28 +29,17 @@ namespace DiarioDigital.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Articulo articulo = db.Articulo.Find(id);
-
-
             if (articulo == null)
             {
                 return HttpNotFound();
             }
-
-
-
-
             return View(articulo);
         }
-
-
-
-
 
         // GET: Articulo/Create
         public ActionResult Create()
         {
             ViewBag.categoriaID = new SelectList(db.Categoria, "Idcategoria", "Nombre");
-
             return View();
         }
 
@@ -70,7 +59,7 @@ namespace DiarioDigital.Controllers
                 img.InputStream.Read(articulo.Vista_previa, 0, img.ContentLength);
                 db.Articulo.Add(articulo);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Articulo", new { id = articulo.IdArticulo});
+                return RedirectToAction("Details", "Articulo", new { id = articulo.IdArticulo });
             }
 
 
@@ -104,7 +93,7 @@ namespace DiarioDigital.Controllers
         {
             byte[] imageNactual = null;
 
-           
+
             if (img == null)
             {
 
@@ -122,14 +111,15 @@ namespace DiarioDigital.Controllers
 
             if (ModelState.IsValid)
             {
-               
+
                 db.Entry(articulo).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details","Articulo", new { id = articulo.IdArticulo});
+                return RedirectToAction("Details", "Articulo", new { id = articulo.IdArticulo });
             }
-            ViewBag.categoriaID = new SelectList(db.Categoria, "Idcategoria", "Nombre", articulo.categoriaID);
+      
             return View(articulo);
         }
+
 
         // GET: Articulo/Delete/5
         public ActionResult BorrarArticulo(int? id)
@@ -217,10 +207,7 @@ namespace DiarioDigital.Controllers
             var soc = db.Articulo.Where(t => t.Categoria.Nombre == "Opinion");
 
             return View(soc);
-        }   
-     
-
-
+        }
 
         protected override void Dispose(bool disposing)
         {

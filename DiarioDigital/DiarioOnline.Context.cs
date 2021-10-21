@@ -28,7 +28,6 @@ namespace DiarioDigital
         public virtual DbSet<Articulo> Articulo { get; set; }
         public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Comentarios> Comentarios { get; set; }
-        public virtual DbSet<Subcomentarios> Subcomentarios { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }
