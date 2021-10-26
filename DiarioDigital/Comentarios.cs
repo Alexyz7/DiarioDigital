@@ -15,24 +15,14 @@ namespace DiarioDigital
 
     public partial class Comentarios
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Comentarios()
-        {
-            this.Comentarios1 = new HashSet<Comentarios>();
-        }
-    
         public int Idcoment { get; set; }
-        [Required(ErrorMessage = "El comentario no puede ser vacio")]
+        [Required]
         public string comentario { get; set; }
         public System.DateTime DateComent { get; set; }
         public Nullable<int> postID { get; set; }
         public Nullable<int> userID { get; set; }
-        public Nullable<int> comentsubID { get; set; }
     
         public virtual Articulo Articulo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comentarios> Comentarios1 { get; set; }
-        public virtual Comentarios Comentarios2 { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }
 }

@@ -10,7 +10,18 @@ html, body {
 }
 
 
-#ContenedorPrincipal {
+.zoom {
+    
+    transition: transform .2s; /* Animacion */
+   
+  
+}
+
+    .zoom:hover {
+        transform: scale(1.2);
+    }
+
+ #ContenedorPrincipal{
 
     max-width:920px; 
     background-color:white;

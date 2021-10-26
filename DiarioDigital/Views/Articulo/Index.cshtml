@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DiarioDigital.Articulo>
+﻿@model IEnumerable<DiarioDigital.ViewModel.ArticuloViewmodel>
+
 
 @{
     ViewBag.Title = "Index";
@@ -23,10 +24,8 @@
         @foreach (var item in Model)
         {
 
-
-            <div class="col-md-4 justify-content-center">
+           <div class="col-md-4 justify-content-center">
                 <a style="text-decoration:none" href="@Url.Action("Details", new { id = item.IdArticulo})">
-
                     <div class="col-md-12">
                         <picture>
                             @{
@@ -35,10 +34,7 @@
                             }
                             <img src="@imgss" style="height:200px; width:250px" class="rounded mx-auto d-block" />
                         </picture>
-                        <footer style="border-bottom: 1px solid grey"><h6 style="color:darkgray; font-family:Garamond">@Html.DisplayFor(modelitem => item.Categoria.Nombre)</h6></footer>
-
-
-
+                        <footer style="border-bottom: 1px solid grey"><h6 style="color:darkgray; font-family:Garamond">@item.categoriaNombre</h6></footer>
                         <p class="underline-on-hover" style="color:black;  font-size:20px ;line-height:23px ;font-family: Times New Roman, serif">@Html.DisplayFor(modelItem => item.Titulo)</p>
 
                     </div>

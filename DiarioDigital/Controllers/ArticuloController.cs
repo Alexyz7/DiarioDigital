@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DiarioDigital;
+using DiarioDigital.ViewModel;
 
 namespace DiarioDigital.Controllers
 {
@@ -17,8 +18,23 @@ namespace DiarioDigital.Controllers
         // GET: Articulo
         public ActionResult Index()
         {
-            var articulo = db.Articulo.Include(a => a.Categoria);
-            return View(articulo.ToList());
+
+        
+            var articulo = db.Articulo.Include("Categoria").Select(x => new ArticuloViewmodel
+            {
+                IdArticulo = x.IdArticulo,
+                Titulo = x.Titulo,
+                Fecha = x.Fecha,
+                Contenido = x.Contenido,
+                Vista_previa = x.Vista_previa,
+                categoriaID = x.categoriaID,
+                categoriaNombre = db.Categoria.Where(e => e.Idcategoria == x.categoriaID).Select(f => f.Nombre).FirstOrDefault().ToString()
+            });
+
+
+          
+
+            return View(articulo); 
         }
 
         // GET: Articulo/Details/5
@@ -28,13 +44,35 @@ namespace DiarioDigital.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Articulo articulo = db.Articulo.Find(id);
-            if (articulo == null)
+
+            var dato = db.Articulo.Find(id);
+
+           
+            var ss = new ArticuloViewmodel
+            {
+                IdArticulo = dato.IdArticulo,
+                Titulo = dato.Titulo,
+                Contenido = dato.Contenido,
+                Vista_previa = dato.Vista_previa,
+                categoriaID = dato.categoriaID,
+                Fecha = dato.Fecha
+            };
+
+                    
+
+            if (dato == null)
             {
                 return HttpNotFound();
             }
-            return View(articulo);
+
+          
+      
+            return View(ss);
         }
+
+
+
+
 
         // GET: Articulo/Create
         public ActionResult Create()
@@ -67,6 +105,9 @@ namespace DiarioDigital.Controllers
             ViewBag.categoriaID = new SelectList(db.Categoria, "Idcategoria", "Nombre", articulo.categoriaID);
             return View(articulo);
         }
+
+
+      
 
         // GET: Articulo/Edit/5
         public ActionResult Edit(int? id)

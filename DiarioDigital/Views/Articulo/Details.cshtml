@@ -1,9 +1,15 @@
-﻿@model DiarioDigital.Articulo
+﻿@model DiarioDigital.ViewModel.ArticuloViewmodel
+
+
+
 
 
 @{
+
     ViewBag.Title = "Details";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 
 
 }
@@ -49,19 +55,19 @@
 
 
     <div class="row" style="background-color: #f0f2f5;">
-
-        @if (Model.Comentarios != null)
-        {
-
+           
             <div class="col-md-12">
-                @Html.Action("MostrarComent", "Comentarios", new { id = Model.IdArticulo })
+                @Html.Action("MostrarComent","Comentarios", new { id = Model.IdArticulo})
+          </div>
 
-            </div>
-        }
-
+            
          
 
-        <div class="col-md-12">@Html.Action("Coment", "Comentarios", new { id = Model.IdArticulo })</div>
+            <div class="col-md-12">
+
+
+                @Html.Action("Coment", "Comentarios", new {id = Model.IdArticulo})
+            </div>
 
 
 

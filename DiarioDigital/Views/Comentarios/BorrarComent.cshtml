@@ -14,13 +14,17 @@
 {
     @Html.AntiForgeryToken()
 
-    <i class="bi bi-trash" for="g" style="font-size:23px; cursor:pointer">
+    @Html.HiddenFor(model => model.Idcoment)
+    @Html.HiddenFor(model => model.postID)
 
-        <input type="submit" value="BorrarComent" id="g" hidden />
-        
-    </i>
 
-}
+    <label class="col-md-1 col-2 bi bi-trash zoom" style="font-size:20px; cursor:pointer; padding:0;color: red">
+
+        <input type="submit" value="BorrarComent" name="borrado" style="opacity:0" />
+
+        </label>
+
+   }
 
 
 

@@ -37,7 +37,7 @@ namespace DiarioDigital
         [Required(ErrorMessage = "Ingrese un nombre")]
         public string Nombre { get; set; }
 
-       public bool autenticar()
+        public bool autenticar()
         {
 
             return db.Usuarios.Where(x => x.Email == this.Email && x.Contraseña == this.Contraseña).FirstOrDefault() != null;
@@ -51,8 +51,3 @@ namespace DiarioDigital
 
     }
 }
-
-
-
-
-
